@@ -1,3 +1,16 @@
-test('sum 2 + 2', ()=>{
-    expect(2 + 2).toBe(4)
+import { SubmitFeedbackUseCase } from "./submit-feedback-use-case"
+
+describe('Submit feedback', () => {
+    it('should be able to submit a feedback', async () => {
+        const feedback = new SubmitFeedbackUseCase(
+            { create: async () => {}},
+            { sendMail: async () => {}}
+        )
+
+        await expect(feedback.execute({
+            type: 'BUG',
+            comment: 'A new comment',
+            screenshot: 'photo.png'
+        })).resolves.not.toThrow();
+    })
 })
